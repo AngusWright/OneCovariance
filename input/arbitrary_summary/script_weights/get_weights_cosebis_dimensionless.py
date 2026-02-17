@@ -38,6 +38,9 @@ def main():
     N_theta = args.ntheta
     get_W_ell_as_well = True # If true the Well are calculated
     num_cores = args.nthread #number of cores used
+    Nmax_mm = args.Nmax_mm # maximum COSEBI mode
+    tmin_mm = args.tmin_mm #theta_min in arcmin
+    tmax_mm = args.tmax_mm #theta_max in armin
 
 
     hdr_str_mm_plus_fourier = 'dimensionless COSEBI weights for En in Fourier space\n'
@@ -65,12 +68,9 @@ def main():
     hdr_str_mm_minus_real += 'number of COSEBI modes = ' + str(Nmax_mm) + '\n'
     hdr_str_mm_minus_real += 'theta[arcmin]      T_-(theta)'
 
+    #define constants
     mp.dps = 160
     arcmintorad = 1./60./180.*np.pi
-    #define constants
-    Nmax_mm = args.Nmax_mm # maximum COSEBI mode
-    tmin_mm = args.tmin_mm #theta_min in arcmin
-    tmax_mm = args.tmax_mm #theta_max in armin
 
     tmin_mm *= arcmintorad
     tmax_mm *= arcmintorad
