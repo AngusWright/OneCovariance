@@ -26,9 +26,11 @@ def main():
     parser.add_argument('-N_mm', '--Nmax_mm', type=int, default=6, help='number of cosebi modes to be constructed for lensing (default is 6)')
     parser.add_argument('-tlo_mm', '--tmin_mm', type=float, default=0.5, help='lower limit for angular range in arcmin for lensing(default is 0.5)')
     parser.add_argument('-tup_mm', '--tmax_mm', type=float, default=300, help='upper limit for angular range in arcmin for lensing(default is 300)')
+    parser.add_argument('-o', '--outpath', type=str, default="./../dimless_cosebis/", help='output path for fourier weights(default is "./../dimless_cosebis/")')
     
     args = parser.parse_args()
 
+    print(args)
 
     ell_min = 1 # Minimum multipole
     ell_max = 1e5 # Maximum multipole
@@ -222,13 +224,13 @@ def main():
         tpn[:,0] /= arcmintorad
         tmn[:,0] /= arcmintorad
         if nn < 10:
-            file_tpn = "./../dimless_cosebis/dimensionless_Tp_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_0"+str(nn)  + ".table"
-            file_tmn = "./../dimless_cosebis/dimensionless_Tm_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_0"+str(nn)  + ".table"
-            file_Wn = "./../dimless_cosebis/dimensionless_Wn_"  +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_0"+str(nn)  + ".table"
+            file_tpn = args.outpath + "/dimensionless_Tp_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_0"+str(nn)  + ".table"
+            file_tmn = args.outpath + "/dimensionless_Tm_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_0"+str(nn)  + ".table"
+            file_Wn = args.outpath +  "/dimensionless_Wn_"  +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_0"+str(nn)  + ".table"
         else:
-            file_tpn = "./../dimless_cosebis/dimensionless_Tp_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_"+str(nn)  + ".table"
-            file_tmn = "./../dimless_cosebis/dimensionless_Tm_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_"+str(nn)  + ".table"
-            file_Wn = "./../dimless_cosebis/dimensionless_Wn_"  +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_"+str(nn)  + ".table"
+            file_tpn = args.outpath + "/dimensionless_Tp_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_"+str(nn)  + ".table"
+            file_tmn = args.outpath + "/dimensionless_Tm_" +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_"+str(nn)  + ".table"
+            file_Wn = args.outpath + "/dimensionless_Wn_"  +str(tmin_mm/arcmintorad) + "_to_" + str(tmax_mm/arcmintorad) + "_"+str(nn)  + ".table"
         np.savetxt(file_tpn,tpn, header=hdr_str_mm_plus_real)
         np.savetxt(file_tmn,tmn, header=hdr_str_mm_minus_real)    
         if get_W_ell_as_well:
